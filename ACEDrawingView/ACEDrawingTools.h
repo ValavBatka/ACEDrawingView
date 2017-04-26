@@ -72,6 +72,10 @@
 
 - (CGRect)addPathPreviousPreviousPoint:(CGPoint)p2Point withPreviousPoint:(CGPoint)p1Point withCurrentPoint:(CGPoint)cpoint;
 
+- (CGMutablePathRef)currentPath;
+- (void)setCurrentPath:(CGMutablePathRef)newPath;
+
+
 @end
 
 #pragma mark -

@@ -79,6 +79,13 @@ CGPoint midPoint(CGPoint p1, CGPoint p2)
     return bounds;
 }
 
+- (CGMutablePathRef)currentPath {
+    return path;
+}
+- (void)setCurrentPath:(CGMutablePathRef)newPath {
+    path = newPath;
+}
+
 - (void)draw
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
