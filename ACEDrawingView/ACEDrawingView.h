@@ -95,6 +95,21 @@ typedef NS_ENUM(NSUInteger, ACEDrawingMode) {
  */
 - (void)commitAndDiscardToolStack;
 
+#pragma mark - Save/Load
+
+/**
+ *  Return data of the curect drawing
+ *  @return NSMutableArray
+ */
+- (NSMutableArray *) drawingData;
+
+/**
+ *  Load drawing data in param
+ *  @param  data    NSMutableArray
+ */
+- (void) loadDrawingData:(NSMutableArray *) data;
+
+
 @end
 
 #pragma mark - 

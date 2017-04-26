@@ -140,6 +140,28 @@
     [self.pathArray removeAllObjects];
 }
 
+#pragma mark - Save/Load
+
+/**
+ *  Return data of the curect drawing
+ *  @return NSMutableArray
+ */
+- (NSMutableArray *) drawingData {
+    return self.pathArray;
+}
+
+/**
+ *  Load drawing data in param
+ *  @param  data    NSMutableArray
+ */
+- (void) loadDrawingData:(NSMutableArray *) data {
+    self.pathArray = data;
+    
+    // redraw
+    [self updateCacheImage:YES];
+    [self setNeedsDisplay];
+}
+
 - (void)updateCacheImage:(BOOL)redraw
 {
     // init a context
