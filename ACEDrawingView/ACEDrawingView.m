@@ -142,23 +142,47 @@
 
 #pragma mark - Save/Load
 
-/**
- *  Return data of the curect drawing
- *  @return NSMutableArray
- */
-- (NSMutableArray *) drawingData {
-    return self.pathArray;
+- (NSData *) drawingData {
+    
+    // Init array of data
+    NSMutableArray *toolsData = [[NSMutableArray alloc] init];
+    
+    // Loop the tool
+    for (ACEDrawingPenTool *tool in self.pathArray) {
+        if ([tool isKindOfClass:ACEDrawingPenTool.class]) {
+            UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:tool.currentPath];
+            [toolsData addObject:[NSKeyedArchiver archivedDataWithRootObject:path]];
+        }
+    }
+    
+    // Return data of the array of the tools
+    if (toolsData.count > 0) {
+        return [NSKeyedArchiver archivedDataWithRootObject:toolsData];
+    }
+    
+    return nil;
 }
 
 /**
  *  Load drawing data in param
- *  @param  data    NSMutableArray
+ *  @param  data    NSData
  */
-- (void) loadDrawingData:(NSMutableArray *) data {
-    self.pathArray = data;
+- (void) loadDrawingData:(NSData *) data {
+    
+    NSArray *toolsData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if ([toolsData isKindOfClass:NSArray.class]) {
+        for (id toolData in toolsData) {
+            UIBezierPath *path = [NSKeyedUnarchiver unarchiveObjectWithData:toolData];
+            CGMutablePathRef cgPath = CGPathCreateMutableCopy(path.CGPath);
+            ACEDrawingPenTool *tool = [ACEDrawingPenTool new];
+            [tool setCurrentPath:cgPath];
+            
+            [self.pathArray addObject:tool];
+        }
+    }
     
     // redraw
-    [self updateCacheImage:YES];
+    [self updateCacheImage:FALSE];
     [self setNeedsDisplay];
 }
 

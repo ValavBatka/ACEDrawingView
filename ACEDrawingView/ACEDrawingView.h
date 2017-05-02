@@ -99,15 +99,15 @@ typedef NS_ENUM(NSUInteger, ACEDrawingMode) {
 
 /**
  *  Return data of the curect drawing
- *  @return NSMutableArray
+ *  @return NSData
  */
-- (NSMutableArray *) drawingData;
+- (NSData *) drawingData;
 
 /**
  *  Load drawing data in param
- *  @param  data    NSMutableArray
+ *  @param  data    NSData
  */
-- (void) loadDrawingData:(NSMutableArray *) data;
+- (void) loadDrawingData:(NSData *) data;
 
 
 @end
